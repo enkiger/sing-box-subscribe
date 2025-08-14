@@ -459,12 +459,6 @@
         "outbound": "direct"
       },
       {
-        "domain_suffix": [
-          "notion.splunkcloud.com"
-        ],
-        "outbound": "direct"
-      },
-      {
         "rule_set": "geosite-category-ads-all",
         "clash_mode": "global",
         "outbound": "Proxy"
