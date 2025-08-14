@@ -443,18 +443,8 @@
       {
         "domain_suffix": [
           "services.vnc.com"
-        ],
-        "outbound": "direct"
-      },
-	  {
-        "domain_suffix": [
-          "realvnc.com"
-        ],
-        "outbound": "direct"
-      },
-	  {
-        "domain_suffix": [
-          "notion.so"
+		  "realvnc.com"
+		  "notion.so"
         ],
         "outbound": "direct"
       },
