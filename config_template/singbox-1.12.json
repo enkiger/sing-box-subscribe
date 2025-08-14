@@ -438,7 +438,31 @@
       },
       {
         "domain_suffix": ["autodesk.com"],
-        "action": "reject"
+        "outbound": "reject"
+      },
+      {
+        "domain_suffix": [
+          "services.vnc.com"
+        ],
+        "outbound": "direct"
+      },
+	  {
+        "domain_suffix": [
+          "realvnc.com"
+        ],
+        "outbound": "direct"
+      },
+	  {
+        "domain_suffix": [
+          "notion.so"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "domain_suffix": [
+          "notion.splunkcloud.com"
+        ],
+        "outbound": "direct"
       },
       {
         "rule_set": "geosite-category-ads-all",
