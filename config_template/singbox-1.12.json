@@ -442,9 +442,17 @@
       },
       {
         "domain_suffix": [
-          "services.vnc.com"
-		  "realvnc.com"
-		  "notion.so"
+          "services.vnc.com",
+		  "realvnc.com",
+		  "notion.so",
+		  "cloudflareinsights.com",
+		  "cloudflarestatus.com",
+		  "cloudflare.com",
+		  "raspberrypi.com",
+		  "domain.digitalplat.org",
+		  "22.054238.xyz",
+		  "11.054238.xyz",
+		  "it.159753.dpdns.org"
         ],
         "outbound": "direct"
       },
