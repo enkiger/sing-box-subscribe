@@ -452,7 +452,7 @@
           "services.vnc.com",
           "realvnc.com",
           "notion.so",
-		  "11.054238.xyz",
+		  "054238.xyz",
           "cloudflareinsights.com",
           "cloudflarestatus.com",
           "cloudflare.com",
@@ -460,7 +460,7 @@
           "domain.digitalplat.org",
           "region2.v2.argotunnel.com",
           "region1.v2.argotunnel.com",
-          "it.159753.dpdns.org"
+          "159753.dpdns.org"
         ],
         "outbound": "direct"
       },
