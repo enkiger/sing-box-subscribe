@@ -448,21 +448,28 @@
         "outbound": "reject"
       },
       {
-        "domain_suffix": [
+        "domain_keyword": [
           "services.vnc.com",
           "realvnc.com",
           "notion.so",
-		  "054238.xyz",
+          "054238.xyz",
           "cloudflareinsights.com",
           "cloudflarestatus.com",
-          "cloudflare.com",
-          "raspberrypi.com",
+          "cloudflare",
+          "raspberrypi",
           "domain.digitalplat.org",
           "region2.v2.argotunnel.com",
           "region1.v2.argotunnel.com",
           "159753.dpdns.org"
         ],
         "outbound": "direct"
+      },
+      {
+        "domain_suffix": [
+          "readworks.org",
+		  "cmliussss.com"
+        ],
+        "outbound": "America"
       },
       {
         "rule_set": "geosite-category-ads-all",
