@@ -143,7 +143,8 @@
         "Japan",
         "America",
         "Others"
-      ]
+      ],
+      "default": "America"
     },
     {
       "tag":"Telegram",
@@ -155,7 +156,8 @@
         "Japan",
         "America",
         "Others"
-      ]
+      ],
+      "default": "America"
     },
     {
       "tag":"Twitter",
@@ -167,7 +169,8 @@
         "Japan",
         "America",
         "Others"
-      ]
+      ],
+      "default": "America"
     },
     {
       "tag":"Facebook",
@@ -179,7 +182,8 @@
         "Japan",
         "America",
         "Others"
-      ]
+      ],
+      "default": "America"
     },
     {
       "tag":"BiliBili",
@@ -188,7 +192,8 @@
         "direct",
         "HongKong",
         "TaiWan"
-      ]
+      ],
+      "default": "direct"
     },
     {
       "tag":"Bahamut",
@@ -258,7 +263,8 @@
         "Japan",
         "America",
         "Others"
-      ]
+      ],
+      "default": "direct"
     },
     {
       "tag":"Microsoft",
@@ -271,7 +277,8 @@
         "Japan",
         "America",
         "Others"
-      ]
+      ],
+      "default": "direct"
     },
     {
       "tag":"Games",
@@ -361,7 +368,7 @@
     },
     {
       "tag":"America",
-      "type":"selector",
+      "type":"urltest",
       "outbounds":[
         "{all}"
       ],
@@ -445,6 +452,27 @@
           "yacd.metacubex.one",
           "yacd.haishan.me",
           "d.metacubex.one"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "domain_suffix": ["autodesk.com"],
+        "outbound": "reject"
+      },
+      {
+        "domain_keyword": [
+          "services.vnc.com",
+          "realvnc.com",
+          "notion.so",
+          "054238.xyz",
+          "cloudflareinsights.com",
+          "cloudflarestatus.com",
+          "cloudflare",
+          "raspberrypi",
+          "domain.digitalplat.org",
+          "region2.v2.argotunnel.com",
+          "region1.v2.argotunnel.com",
+          "159753.dpdns.org"
         ],
         "outbound": "direct"
       },
