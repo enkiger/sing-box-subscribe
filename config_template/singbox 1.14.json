@@ -1,3 +1,4 @@
+
 {
   "log": {
     "level": "info",
@@ -41,59 +42,113 @@
     }
   ],
   "dns": {
-    "hosts": {
-      "dns.alidns.com": ["223.5.5.5", "223.6.6.6"],
-      "doh.pub": ["1.12.12.21", "120.53.53.53"],
-      "dns.google": ["8.8.8.8", "8.8.4.4"],
-      "cloudflare-dns.com": ["104.16.248.249", "104.16.249.249"]
-    },
     "servers": [
-      {"tag": "cf-doh", "type": "https", "server": "cloudflare-dns.com", "detour": "Proxy"},
-      {"tag": "gg-doh", "type": "https", "server": "dns.google", "detour": "Proxy"},
-      {"tag": "ali-doh", "type": "https", "server": "dns.alidns.com", "detour": "Direct"},
-      {"tag": "tx-doh", "type": "https", "server": "doh.pub", "detour": "Direct"},
-      {"tag": "ali-udp", "type": "udp", "server": "223.5.5.5"},
-      {"tag": "tx-udp", "type": "udp", "server": "119.29.29.29"},
-      {"tag": "remote", "type": "fakeip", "inet4_range": "198.18.0.0/15", "inet6_range": "fc00::/18"},
-      {"tag": "local", "type": "local", "neighbor_domain": [".local", ".lan"]}
+      {
+        "tag": "cf-doh",
+        "type": "https",
+        "server": "1.1.1.1",
+        "detour": "Proxy"
+      },
+      {
+        "tag": "gg-doh",
+        "type": "https",
+        "server": "8.8.8.8",
+        "detour": "Proxy"
+      },
+      {
+        "tag": "ali-doh",
+        "type": "https",
+        "server": "223.5.5.5"
+      },
+      {
+        "tag": "ali-udp",
+        "type": "udp",
+        "server": "223.5.5.5"
+      },
+      {
+        "tag": "remote",
+        "type": "fakeip",
+        "inet4_range": "198.18.0.0/15",
+        "inet6_range": "fc00::/18"
+      },
+      {
+        "tag": "local",
+        "type": "local"
+      }
     ],
     "rules": [
-      {"rule_set": ["Reject"], "action": "predefined"},
-      {"clash_mode": "Direct", "action": "route", "server": "local"},
-      {"clash_mode": "Global", "action": "route", "server": "remote"},
-      {"rule_set": ["AppleCN"], "action": "route", "server": "ali-doh"},
-      {"type": "logical", "mode": "and", "rules": [{"clash_mode": "AllowAds", "invert": true}, {"rule_set": ["Reject", "Ads_AWAvenue"]}], "action": "reject"},
-      {"rule_set": ["ChinaDomain"], "query_type": ["A", "AAAA"], "action": "evaluate", "server": "ali-udp", "tag": "ali-response", "timeout": "3s"},
-      {"rule_set": ["ChinaDomain"], "query_type": ["A", "AAAA"], "action": "evaluate", "server": "tx-udp", "tag": "tx-response", "timeout": "3s"},
-      {"rule_set": ["ChinaDomain"], "query_type": ["A", "AAAA"], "match_response": "ali-response", "ip_accept_any": true, "action": "respond", "race": true},
-      {"rule_set": ["ChinaDomain"], "query_type": ["A", "AAAA"], "match_response": "tx-response", "ip_accept_any": true, "action": "respond", "race": true},
-      {"rule_set": ["ChinaDomain"], "action": "route", "server": "ali-udp", "timeout": "3s"},
-      {"query_type": "HTTPS", "action": "reject"},
-      {"domain_suffix": ["lancache.steamcontent.com", "10099.com.cn", "msftconnecttest.com", "msftncsi.com", "local", "lan", "home", "internal", "corp", "example.com"], "action": "route", "server": "local"},
-      {"query_type": ["A", "AAAA"], "action": "route", "server": "remote", "rewrite_ttl": 1}
+      {
+        "clash_mode": "Direct",
+        "action": "route",
+        "server": "ali-udp"
+      },
+      {
+        "clash_mode": "Global",
+        "action": "route",
+        "server": "remote"
+      },
+      {
+        "rule_set": ["AppleCN"],
+        "action": "route",
+        "server": "ali-doh"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "clash_mode": "AllowAds",
+            "invert": true
+          },
+          {
+            "rule_set": ["Reject", "Ads_AWAvenue"]
+          }
+        ],
+        "action": "reject"
+      },
+      {
+        "rule_set": ["ChinaDomain"],
+        "action": "route",
+        "server": "ali-udp"
+      },
+      {
+        "query_type": "HTTPS",
+        "action": "reject"
+      },
+      {
+        "domain_suffix": [
+          "lancache.steamcontent.com",
+          "10099.com.cn",
+          "msftconnecttest.com",
+          "msftncsi.com",
+          "local",
+          "lan",
+          "home",
+          "internal",
+          "corp",
+          "example.com"
+        ],
+        "server": "ali-udp"
+      },
+      {
+        "query_type": ["A", "AAAA"],
+        "action": "route",
+        "server": "remote",
+        "rewrite_ttl": 1
+      }
     ],
-    "optimistic": true,
-    "strategy": "prefer_ipv4",
+    "independent_cache": true,
     "final": "ali-doh"
   },
   "inbounds": [
     {
       "tag": "tun-in",
       "type": "tun",
-      "address": [
-        "172.19.0.1/30",
-        "fdfe:dcba:9876::1/126"
-      ],
-      "stack": "system",
+      "inet4_address": "172.19.0.1/30",
+      "inet6_address": "fdfe:dcba:9876::1/126",
+      "stack": "gvisor",
       "auto_route": true,
-      "strict_route": true,
-      "platform": {
-        "http_proxy": {
-          "enabled": true,
-          "server": "127.0.0.1",
-          "server_port": 7890
-        }
-      }
+      "strict_route": true
     },
     {
       "tag": "mixed-in",
@@ -104,7 +159,7 @@
   ],
   "outbounds": [
     {"tag": "Direct", "type": "direct"},
-    {"tag": "Proxy", "type": "selector", "outbounds": ["HongKong", "United States", "Singapore", "Japan", "Taiwan", "Others", "Direct"], "default": "HongKong", "interrupt_exist_connections": true},
+    {"tag": "Proxy", "type": "selector", "outbounds": ["HongKong", "United States", "Singapore", "Japan", "Taiwan", "Others", "Direct"], "default": "Direct", "interrupt_exist_connections": true},
     {"tag": "AI", "type": "selector", "outbounds": ["Proxy", "HongKong", "United States", "Singapore", "Japan", "Taiwan"], "default": "United States", "interrupt_exist_connections": true},
     {"tag": "Google", "type": "selector", "outbounds": ["Proxy", "HongKong", "United States", "Singapore", "Japan", "Taiwan"], "default": "United States", "interrupt_exist_connections": true},
     {"tag": "Microsoft", "type": "selector", "outbounds": ["Proxy", "HongKong", "United States", "Singapore", "Japan", "Taiwan", "Direct"], "default": "Direct", "interrupt_exist_connections": true},
@@ -116,19 +171,17 @@
     {"tag": "Spotify", "type": "selector", "outbounds": ["Proxy", "HongKong", "United States", "Singapore", "Japan", "Taiwan", "Direct"], "default": "United States", "interrupt_exist_connections": true},
     {"tag": "Streaming", "type": "selector", "outbounds": ["Proxy", "HongKong", "United States", "Singapore", "Japan", "Taiwan"], "interrupt_exist_connections": true},
     {"tag": "BiliBili", "type": "selector", "outbounds": ["HongKong", "Taiwan", "Direct"], "default": "Direct", "interrupt_exist_connections": true},
-    {"tag": "HongKong", "type": "selector", "outbounds": ["{all}"], "filter": [{"action": "include", "keywords": ["🇭🇰", "HK", "hk", "香港", "港", "HongKong"]}]},
-    {"tag": "Taiwan", "type": "selector", "outbounds": ["{all}"], "filter": [{"action": "include", "keywords": ["🇹🇼", "TW", "tw", "台湾", "臺灣", "台", "Taiwan"]}]},
-    {"tag": "United States", "type": "urltest", "outbounds": ["{all}"], "filter": [{"action": "include", "keywords": ["🇺🇸", "US", "us", "美国", "美", "United States"]}], "url": "http://www.gstatic.com/generate_204", "interval": "10m", "tolerance": 50},
-    {"tag": "Singapore", "type": "selector", "outbounds": ["{all}"], "filter": [{"action": "include", "keywords": ["🇸🇬", "SG", "sg", "新加坡", "狮", "Singapore"]}]},
-    {"tag": "Japan", "type": "selector", "outbounds": ["{all}"], "filter": [{"action": "include", "keywords": ["🇯🇵", "JP", "jp", "日本", "日", "Japan"]}]},
-    {"tag": "Others", "type": "selector", "outbounds": ["{all}"], "filter": [{"action": "exclude", "keywords": ["🇭🇰", "HK", "hk", "香港", "香", "港", "🇹🇼", "TW", "tw", "台湾", "臺", "台", "🇸🇬", "SG", "sg", "新加坡", "狮", "🇯🇵", "JP", "jp", "日本", "日", "🇺🇸", "US", "us", "美国", "美"]}]},
-    {"tag": "Auto", "type": "urltest", "outbounds": ["{all}"], "filter": [{"action": "exclude", "keywords": ["网站", "地址", "剩余", "过期", "时间", "有效"]}], "url": "http://www.gstatic.com/generate_204", "interval": "10m", "tolerance": 50}
+    {"tag": "HongKong", "type": "selector", "outbounds": ["{all}"], "filter": [{"action": "include", "keywords": ["🇭🇰|HK|hk|香港|港|HongKong"]}]},
+    {"tag": "Taiwan", "type": "selector", "outbounds": ["{all}"], "filter": [{"action": "include", "keywords": ["🇹🇼|TW|tw|台湾|臺灣|台|Taiwan"]}]},
+    {"tag": "United States", "type": "urltest", "outbounds": ["{all}"], "filter": [{"action": "include", "keywords": ["🇺🇸|US|us|美国|美|United States"]}], "url": "http://www.gstatic.com/generate_204", "interval": "10m", "tolerance": 50},
+    {"tag": "Singapore", "type": "selector", "outbounds": ["{all}"], "filter": [{"action": "include", "keywords": ["🇸🇬|SG|sg|新加坡|狮|Singapore"]}]},
+    {"tag": "Japan", "type": "selector", "outbounds": ["{all}"], "filter": [{"action": "include", "keywords": ["🇯🇵|JP|jp|日本|日|Japan"]}]},
+    {"tag": "Others", "type": "selector", "outbounds": ["{all}"], "filter": [{"action": "exclude", "keywords": ["🇭🇰|HK|hk|香港|香|🇹🇼|TW|tw|台湾|台|🇸🇬|SG|sg|新加坡|狮|🇯🇵|JP|jp|日本|日|🇺🇸|US|us|美国|美"]}]},
+    {"tag": "Auto", "type": "urltest", "outbounds": ["{all}"], "filter": [{"action": "exclude", "keywords": ["网站|地址|剩余|过期|时间|有效"]}], "url": "http://www.gstatic.com/generate_204", "interval": "10m", "tolerance": 50}
   ],
   "route": {
     "default_domain_resolver": "ali-udp",
-    "default_http_client": "default",
     "auto_detect_interface": true,
-    "find_process": true,
     "final": "Proxy",
     "rules": [
       {"action": "sniff"},
@@ -157,21 +210,32 @@
       {"ip_is_private": true, "action": "route", "outbound": "Direct"}
     ],
     "rule_set": [
-      {
-        "type": "remote",
-        "tag": [
-          "Reject", "Ads_AWAvenue", "Proxy",
-          "AI", "Telegram", "Twitter", "Facebook", "TikTok",
-          "Steam", "Epic",
-          "Google", "YouTube", "Github", "Microsoft",
-          "Bilibili", "Bahamut", "Emby",
-          "Spotify", "Netflix", "Disney", "PrimeVideo", "HBO",
-          "AppleCN", "AppleProxy", "ChinaDomain", "ChinaIP"
-        ],
-        "format": "binary",
-        "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/{tag}.srs",
-        "update_interval": "24h"
-      }
+      {"type": "remote", "tag": "Reject", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Reject.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "Ads_AWAvenue", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Ads_AWAvenue.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "Proxy", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Proxy.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "AI", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/AI.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "Telegram", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Telegram.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "Twitter", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Twitter.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "Facebook", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Facebook.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "TikTok", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/TikTok.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "Steam", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Steam.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "Epic", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Epic.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "Google", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Google.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "YouTube", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/YouTube.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "Github", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Github.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "Microsoft", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Microsoft.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "Bilibili", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Bilibili.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "Bahamut", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Bahamut.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "Emby", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Emby.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "Spotify", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Spotify.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "Netflix", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Netflix.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "Disney", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/Disney.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "PrimeVideo", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/PrimeVideo.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "HBO", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/HBO.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "AppleCN", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/AppleCN.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "AppleProxy", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/AppleProxy.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "ChinaDomain", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/ChinaDomain.srs", "update_interval": "24h"},
+      {"type": "remote", "tag": "ChinaIP", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/ChinaIP.srs", "update_interval": "24h"}
     ]
   }
 }
