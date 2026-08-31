@@ -12,12 +12,7 @@
         "tag": "dns_gg",
         "detour": "proxy",
         "server": "8.8.8.8"
-      }, //      {
-      //        "type": "https",
-      //        "tag": "dns_cf",
-      //        "detour": "proxy",
-      //        "server": "1.1.1.1"
-      //      },
+      }, 
       {
         "type": "https",
         "tag": "dns_adguard",
@@ -131,24 +126,13 @@
         "server": "dns_gg",
         "tag": "dns_gg",
         "client_subnet": "114.114.114.114/24"
-      }, //      {
-      //        "rule_set": "gfw",
-      //        "invert": true,
-      //        "action": "evaluate",
-      //        "server": "dns_cf",
-      //        "tag": "dns_cf"
-      //      },
+      }, 
       {
         "rule_set": "cn_ip",
         "match_response": "dns_gg",
         "race": true,
         "server": "local"
-      }, //      {
-      //        "rule_set": "cn_ip",
-      //        "match_response": "dns_cf",
-      //        "race": true,
-      //        "server": "local"
-      //      },
+      }, 
       {
         "rule_set": "gfw",
         "invert": true,
@@ -498,10 +482,5 @@
       "enabled": true,
       "store_fakeip": true
     },
-    // "clash_api": {
-    //   "external_controller": "127.0.0.1:9090",
-    //   "external_ui": "ClashUIforSingbox",
-    //   "external_ui_download_url": "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-no-fonts.zip"
-    // }
   }
 }
