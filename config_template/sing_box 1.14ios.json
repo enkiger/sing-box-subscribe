@@ -511,7 +511,6 @@
       "type": "block",
       "tag": "❌ REJECT-DROP"
     },
-    //节点配置
   ],
   "route": {
     "rules": [
