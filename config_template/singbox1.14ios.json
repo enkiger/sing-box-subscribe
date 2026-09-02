@@ -91,6 +91,8 @@
       "type": "selector",
       "tag": "🔰 节点选择",
       "outbounds": [
+         "♻️ 自动选择",
+         "🎯 全球直连",
          "{all}"
       ]
     },
