@@ -1556,7 +1556,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs",
-        "http_client": "http_ruleset_proxy",
+        "http_client": "http_ruleset",
         "update_interval": "24h"
       },
       {
@@ -1564,7 +1564,7 @@
         "type": "remote",
         "format": "binary",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ads-all.srs",
-        "http_client": "http_ruleset_proxy",
+        "http_client": "http_ruleset",
         "update_interval": "24h"
       },
       {
@@ -1572,12 +1572,12 @@
         "type": "remote",
         "format": "binary",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-!cn.srs",
-        "http_client": "http_ruleset_proxy",
+        "http_client": "http_ruleset",
         "update_interval": "24h"
       }
     ],
     "default_domain_resolver": "dns_resolver",
-    "default_http_client": "http_ruleset_proxy"
+    "default_http_client": "http_ruleset"
   },
   "experimental": {
     "cache_file": {
@@ -1596,7 +1596,7 @@
     },
     {
       "tag": "http_ruleset_proxy",
-      "detour": "🔰 节点选择"
+      "detour": "DIRECT"
     }
   ],
   "endpoints": [
