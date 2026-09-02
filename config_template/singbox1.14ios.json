@@ -317,36 +317,46 @@
       "connection_receive_window": 0
     }
   ],
-  "inbounds": [
-    {
-      "type": "tun",
-      "tag": "tun-in",
-      "mtu": 1500,
-      "address": "30.0.0.1/24",
-      "dns_mode": "hijack",
-      "auto_route": true,
-      "auto_redirect": true,
-      "strict_route": true,
-      "exclude_interface": [
-        "wlan1",
-        "ap0"
-      ],
-      "exclude_package": [
-        "com.eg.android.AlipayGphone",
-        "com.tencent.mm",
-        "com.xiaomi.market",
-        "com.taobao.taobao",
-        "com.jingdong.app.mall",
-        "com.ss.android.ugc.aweme",
-        "tv.danmaku.bili",
-        "com.xiaomi.xmsf"
-      ],
-      "udp_timeout": "5m0s",
-      "udp_nat_max": 4096,
-      "stack": "mixed",
-      "endpoint_independent_nat": true
-    }
-  ],
+"inbounds": [
+  {
+    "type": "tun",
+    "tag": "tun-in",
+    "mtu": 1500,
+    "address": [
+      "30.0.0.1/24"
+    ],
+    "dns_mode": "hijack",
+    "auto_route": true,
+    "auto_redirect": true,
+    "strict_route": true,
+    "exclude_interface": [
+      "wlan1",
+      "ap0"
+    ],
+    "exclude_package": [
+      "com.eg.android.AlipayGphone",
+      "com.tencent.mm",
+      "com.xiaomi.market",
+      "com.taobao.taobao",
+      "com.jingdong.app.mall",
+      "com.ss.android.ugc.aweme",
+      "tv.danmaku.bili",
+      "com.xiaomi.xmsf"
+    ],
+    "udp_timeout": "5m",
+    "udp_nat_max": 4096,
+    "stack": "mixed",
+    "endpoint_independent_nat": true
+  },
+  {
+    "type": "mixed",
+    "tag": "mixed-in",
+    "listen": "127.0.0.1",
+    "listen_port": 2080,
+    "sniff": true,
+    "sniff_override_destination": true
+  }
+],
   "outbounds": [
     {
       "type": "direct",
