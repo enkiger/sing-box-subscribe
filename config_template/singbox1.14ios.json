@@ -294,14 +294,14 @@
       "tag": "Social",
       "type": "selector",
       "outbounds": ["Proxy", "HongKong", "United States", "Singapore", "Japan", "Taiwan"],
-      "default": "HongKong",
+      "default": "Proxy",
       "interrupt_exist_connections": true
     },
     {
       "tag": "TikTok",
       "type": "selector",
       "outbounds": ["Proxy", "HongKong", "United States", "Singapore", "Japan", "Taiwan"],
-      "default": "United States",
+      "default": "Proxy",
       "interrupt_exist_connections": true
     },
     {
