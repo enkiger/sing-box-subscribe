@@ -232,7 +232,7 @@
     }
   ],
   "inbounds": [
-   {
+     {
       "tag": "tun-in",
       "type": "tun",
       "address": [
@@ -251,9 +251,9 @@
           "enabled": true,
           "server": "127.0.0.1",
           "server_port": 7890
+            }
           }
-        }
-      },
+        },
     {
       "tag": "mixed-in",
       "type": "mixed",
