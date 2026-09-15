@@ -464,6 +464,31 @@
         "outbound": "ts-ep"
       },
       {
+        "domain_suffix": [
+          "autodesk.com"
+        ],
+        "action": "route",
+        "outbound": "Block"
+      },
+	    {
+        "domain_suffix": [
+          "tailscale.com",
+          "tailscale.io",
+		      "vnc.com",
+		      "realvnc.com",
+		      "054238.xyz",
+		      "cloudflareinsights.com",
+		      "cloudflarestatus.com",
+		      "cloudflare.com",
+		      "raspberrypi.com",
+		      "digitalplat.org",
+		      "argotunnel.com",
+		      "dpdns.org"
+        ],
+        "action": "route",
+        "outbound": "Direct"
+      },
+      {
         "ip_cidr": ["100.64.0.0/10"],
         "action": "route",
         "outbound": "ts-ep"
