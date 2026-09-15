@@ -35,10 +35,9 @@
   "endpoints": [
     {
       "type": "tailscale",
-      "tag": "tailscale-node",
+      "tag": "ts-ep",
       "state_directory": "tailscale",
-      "accept_routes": true,
-      "system_interface": false
+      "accept_routes": true
     }
   ],
   "dns": {
@@ -54,10 +53,11 @@
         }
       },
       {
-        "tag": "tailscale-dns",
         "type": "tailscale",
-        "endpoint": "tailscale-node",
-        "accept_default_resolvers": false
+        "tag": "ts",
+        "endpoint": "ts-ep",
+        "accept_default_resolvers": false,
+        "accept_search_domain": false
       },
       {"tag": "cf-doh", "type": "https", "server": "cloudflare-dns.com", "detour": "Proxy", "domain_resolver": "hosts_fix"},
       {"tag": "gg-doh", "type": "https", "server": "dns.google", "detour": "Proxy", "domain_resolver": "hosts_fix"},
@@ -69,8 +69,13 @@
       {"tag": "local", "type": "local", "neighbor_domain": [".local", ".lan"]}
     ],
     "rules": [
+      {
+        "preferred_by": "ts",
+        "action": "route",
+        "server": "ts"
+      },
       {"rule_set": ["Reject"], "action": "predefined"},
-      {"domain_suffix": [".ts.net"], "server": "tailscale-dns"},
+      {"domain_suffix": [".ts.net"], "server": "ts"},
       {"clash_mode": "Direct", "action": "route", "server": "local"},
       {"clash_mode": "Global", "action": "route", "server": "remote"},
       {"rule_set": ["AppleCN"], "action": "route", "server": "ali-doh"},
@@ -109,7 +114,6 @@
   ],
   "outbounds": [
     {"tag": "Direct", "type": "direct"},
-    {"tag": "Tailscale", "type": "tailscale", "endpoint": "tailscale-node"},
     {"tag": "Proxy", "type": "selector", "outbounds": ["HongKong", "United States", "Singapore", "Japan", "Taiwan", "Others", "Direct"], "default": "Direct", "interrupt_exist_connections": true},
     {"tag": "AI", "type": "selector", "outbounds": ["Proxy", "HongKong", "United States", "Singapore", "Japan", "Taiwan"], "default": "United States", "interrupt_exist_connections": true},
     {"tag": "Google", "type": "selector", "outbounds": ["Proxy", "HongKong", "United States", "Singapore", "Japan", "Taiwan"], "default": "United States", "interrupt_exist_connections": true},
@@ -139,7 +143,6 @@
     "rules": [
       {"action": "sniff"},
       {"type": "logical", "mode": "or", "rules": [{"port": 53}, {"protocol": "dns"}], "action": "hijack-dns"},
-      {"domain_suffix": [".ts.net"], "action": "route", "outbound": "Tailscale"},
       {"clash_mode": "Direct", "action": "route", "outbound": "Direct"},
       {"rule_set": ["AppleCN"], "action": "route", "outbound": "Direct"},
       {"type": "logical", "mode": "and", "rules": [{"clash_mode": "AllowAds", "invert": true}, {"rule_set": ["Reject", "Ads_AWAvenue"]}], "action": "reject"},
