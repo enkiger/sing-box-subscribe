@@ -266,21 +266,21 @@
       "tag": "Proxy",
       "type": "selector",
       "outbounds": ["HongKong", "United States", "Singapore", "Japan", "Taiwan", "Others", "Direct"],
-      "default": "Direct",
+      "default": "United States",
       "interrupt_exist_connections": true
     },
     {
       "tag": "AI",
       "type": "selector",
       "outbounds": ["Proxy", "HongKong", "United States", "Singapore", "Japan", "Taiwan"],
-      "default": "United States",
+      "default": "Proxy",
       "interrupt_exist_connections": true
     },
     {
       "tag": "Google",
       "type": "selector",
       "outbounds": ["Proxy", "HongKong", "United States", "Singapore", "Japan", "Taiwan"],
-      "default": "United States",
+      "default": "Proxy",
       "interrupt_exist_connections": true
     },
     {
@@ -308,7 +308,7 @@
       "tag": "Telegram",
       "type": "selector",
       "outbounds": ["Proxy", "HongKong", "United States", "Singapore", "Japan", "Taiwan"],
-      "default": "HongKong",
+      "default": "Proxy",
       "interrupt_exist_connections": true
     },
     {
@@ -321,14 +321,14 @@
       "tag": "Emby",
       "type": "selector",
       "outbounds": ["Proxy", "HongKong", "United States", "Singapore", "Japan", "Taiwan", "Direct"],
-      "default": "HongKong",
+      "default": "Proxy",
       "interrupt_exist_connections": true
     },
     {
       "tag": "Spotify",
       "type": "selector",
       "outbounds": ["Proxy", "HongKong", "United States", "Singapore", "Japan", "Taiwan", "Direct"],
-      "default": "United States",
+      "default": "Proxy",
       "interrupt_exist_connections": true
     },
     {
@@ -368,14 +368,17 @@
     },
     {
       "tag": "United States",
-      "type": "selector",
+      "type": "urltest",
       "outbounds": ["{all}"],
       "filter": [
         {
           "action": "include",
           "keywords": ["🇺🇸|US|us|美国|美|United States"]
         }
-      ]
+      ],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": "10m",
+      "tolerance": 50
     },
     {
       "tag": "Singapore",
