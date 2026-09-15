@@ -124,7 +124,7 @@
         "server": "remote"
       },
       {
-        "preferred_by": "ts-ep",
+        "preferred_by": "ts-dns",
         "action": "route",
         "server": "ts-dns"
       },
