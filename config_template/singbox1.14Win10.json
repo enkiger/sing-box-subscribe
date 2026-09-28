@@ -110,6 +110,10 @@
     ],
     "rules": [
       {
+        "query_type": "AAAA",
+        "action": "reject"
+      },
+      {
         "rule_set": ["Reject"],
         "action": "predefined"
       },
@@ -217,7 +221,7 @@
       }
     ],
     "optimistic": true,
-    "strategy": "prefer_ipv4",
+    "strategy": "ipv4_only",
     "final": "ali-doh"
   },
   "endpoints": [
