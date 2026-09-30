@@ -109,7 +109,6 @@
       }
     ],
     "rules": [
-      },
       {
         "rule_set": ["Reject"],
         "action": "predefined"
