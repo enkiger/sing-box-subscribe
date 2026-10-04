@@ -19,21 +19,6 @@
       "store_dns": true
     }
   },
-  "services": [
-    {
-      "type": "api",
-      "listen": "::",
-      "listen_port": 9999,
-      "secret": "singbox",
-      "dashboard": {
-        "enabled": true,
-        "path": "dashboard",
-        "download_url": "https://gh-proxy.com/https://github.com/SagerNet/sing-box-dashboard/archive/refs/heads/gh-pages.zip",
-        "http_client": "default",
-        "update_interval": "1d"
-      }
-    }
-  ],
   "http_clients": [
     {
       "tag": "default",
@@ -99,13 +84,6 @@
         "tag": "local",
         "type": "local",
         "neighbor_domain": [".local", ".lan"]
-      },
-      {
-        "tag": "ts-dns",
-        "type": "tailscale",
-        "endpoint": "ts-ep",
-        "accept_default_resolvers": false,
-        "accept_search_domain": true
       }
     ],
     "rules": [
@@ -126,16 +104,6 @@
         "clash_mode": "Global",
         "action": "route",
         "server": "remote"
-      },
-      {
-        "preferred_by": "ts-dns",
-        "action": "route",
-        "server": "ts-dns"
-      },
-      {
-        "domain_suffix": ["ts.net", "100.in-addr.arpa"],
-        "action": "route",
-        "server": "ts-dns"
       },
       {
         "rule_set": ["AppleCN"],
@@ -229,10 +197,7 @@
       "type": "tailscale",
       "tag": "ts-ep",
       "state_directory": "tailscale",
-      "hostname": "sing-box",
-      "accept_routes": true,
-      "exit_node_allow_lan_access": true,
-      "udp_timeout": "5m"
+      "hostname": "sing-box-ios"
     }
   ],
   "inbounds": [
@@ -245,19 +210,12 @@
       ],
       "stack": "mixed",
       "auto_route": true,
-      "strict_route": false,
-      "platform": {
-        "http_proxy": {
-          "enabled": true,
-          "server": "127.0.0.1",
-          "server_port": 7890
-        }
-      }
+      "strict_route": false
     },
     {
       "tag": "mixed-in",
       "type": "mixed",
-      "listen": "127.0.0.1",
+      "listen": "0.0.0.0",
       "listen_port": 7890
     }
   ],
@@ -266,9 +224,9 @@
       "tag": "Direct",
       "type": "direct"
     },
-	{
-    "tag": "Block",
-    "type": "block"
+    {
+      "tag": "Block",
+      "type": "block"
     },
     {
       "tag": "Proxy",
@@ -467,20 +425,20 @@
         "action": "route",
         "outbound": "Block"
       },
-	    {
+      {
         "domain_suffix": [
           "tailscale.com",
           "tailscale.io",
-		      "vnc.com",
-		      "realvnc.com",
-		      "054238.xyz",
-		      "cloudflareinsights.com",
-		      "cloudflarestatus.com",
-		      "cloudflare.com",
-		      "raspberrypi.com",
-		      "digitalplat.org",
-		      "argotunnel.com",
-		      "dpdns.org"
+          "vnc.com",
+          "realvnc.com",
+          "054238.xyz",
+          "cloudflareinsights.com",
+          "cloudflarestatus.com",
+          "cloudflare.com",
+          "raspberrypi.com",
+          "digitalplat.org",
+          "argotunnel.com",
+          "dpdns.org"
         ],
         "action": "route",
         "outbound": "Direct"
