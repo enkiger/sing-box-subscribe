@@ -626,7 +626,7 @@
         ],
         "format": "binary",
         "url": "https://gh-proxy.com/https://raw.githubusercontent.com/Repcz/Tool/X/sing-box/Rules/{tag}.srs",
-		"http_client": "direct-client",
+        "http_client": "direct-client",
         "update_interval": "24h"
       }
     ]
