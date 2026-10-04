@@ -33,7 +33,7 @@
         "type": "hosts",
         "predefined": {
           "dns.alidns.com": ["223.5.5.5", "223.6.6.6"],
-          "doh.pub": ["1.12.12.21", "120.53.53.53"],
+          "doh.pub": ["1.12.12.12", "120.53.53.53"],
           "dns.google": ["8.8.8.8", "8.8.4.4"],
           "cloudflare-dns.com": ["104.16.248.249", "104.16.249.249"]
         }
@@ -84,16 +84,23 @@
         "tag": "local",
         "type": "local",
         "neighbor_domain": [".local", ".lan"]
+      },
+      {
+        "tag": "ts-dns",
+        "type": "tailscale",
+        "endpoint": "ts-ep",
+        "accept_search_domain": true
       }
     ],
     "rules": [
       {
-        "query_type": "AAAA",
-        "action": "reject"
-      },
-      {
         "rule_set": ["Reject"],
         "action": "predefined"
+      },
+      {
+        "domain_suffix": ["ts.net", "100.in-addr.arpa"],
+        "action": "route",
+        "server": "ts-dns"
       },
       {
         "clash_mode": "Direct",
@@ -189,7 +196,7 @@
       }
     ],
     "optimistic": true,
-    "strategy": "ipv4_only",
+    "strategy": "prefer_ipv4",
     "final": "ali-doh"
   },
   "endpoints": [
@@ -197,11 +204,14 @@
       "type": "tailscale",
       "tag": "ts-ep",
       "state_directory": "tailscale",
-      "hostname": "sing-box-ios"
+      "hostname": "sing-box-ios",
+      "accept_routes": true,
+      "exit_node_allow_lan_access": true,
+      "udp_timeout": "5m"
     }
   ],
   "inbounds": [
-     {
+    {
       "tag": "tun-in",
       "type": "tun",
       "address": [
