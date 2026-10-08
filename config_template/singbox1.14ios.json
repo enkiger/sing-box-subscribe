@@ -213,8 +213,7 @@
       "exit_node_allow_lan_access": true,
       "udp_timeout": "5m",
       "system_interface": true,
-      "system_interface_name": "tailscale0",
-      "system_interface_mtu": 1280
+      "system_interface_name": "tailscale0"
     }
   ],
   "inbounds": [
