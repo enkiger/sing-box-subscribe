@@ -415,16 +415,16 @@
         "domain_suffix": [
           "tailscale.com",
           "tailscale.io",
-		      "vnc.com",
-		      "realvnc.com",
-		      "054238.xyz",
-		      "cloudflareinsights.com",
-		      "cloudflarestatus.com",
-		      "cloudflare.com",
-		      "raspberrypi.com",
-		      "digitalplat.org",
-		      "argotunnel.com",
-		      "dpdns.org"
+          "vnc.com",
+          "realvnc.com",
+          "054238.xyz",
+          "cloudflareinsights.com",
+          "cloudflarestatus.com",
+          "cloudflare.com",
+          "raspberrypi.com",
+          "digitalplat.org",
+          "argotunnel.com",
+          "dpdns.org"
         ],
         "action": "route",
         "outbound": "Direct"
