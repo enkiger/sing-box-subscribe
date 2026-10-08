@@ -211,7 +211,10 @@
       "hostname": "sing-box-ios",
       "accept_routes": true,
       "exit_node_allow_lan_access": true,
-      "udp_timeout": "5m"
+      "udp_timeout": "5m",
+      "system_interface": true,
+      "system_interface_name": "tailscale0",
+      "system_interface_mtu": 1280
     }
   ],
   "inbounds": [
@@ -224,7 +227,11 @@
       ],
       "stack": "mixed",
       "auto_route": true,
-      "strict_route": false
+      "strict_route": false,
+      "route_exclude_address": [
+        "100.64.0.0/10",
+        "fd7a:115c:a1e0::/48"
+      ]
     },
     {
       "tag": "mixed-in",
@@ -458,7 +465,10 @@
         "outbound": "Direct"
       },
       {
-        "ip_cidr": ["100.64.0.0/10"],
+        "ip_cidr": [
+          "100.64.0.0/10",
+          "fd7a:115c:a1e0::/48"
+        ],
         "action": "route",
         "outbound": "ts-ep"
       },
