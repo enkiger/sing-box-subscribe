@@ -422,16 +422,6 @@
         "outbound": "Direct"
       },
       {
-        "preferred_by": "ts-ep",
-        "action": "route",
-        "outbound": "ts-ep"
-      },
-      {
-        "domain_suffix": ["ts.net", "100.in-addr.arpa"],
-        "action": "route",
-        "outbound": "ts-ep"
-      },
-      {
         "domain_suffix": [
           "autodesk.com"
         ],
@@ -455,14 +445,6 @@
         ],
         "action": "route",
         "outbound": "Direct"
-      },
-      {
-        "ip_cidr": [
-          "100.64.0.0/10",
-          "fd7a:115c:a1e0::/48"
-        ],
-        "action": "route",
-        "outbound": "ts-ep"
       },
       {
         "rule_set": ["AppleCN"],
