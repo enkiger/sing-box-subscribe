@@ -209,11 +209,9 @@
       "tag": "ts-ep",
       "state_directory": "tailscale",
       "hostname": "sing-box-ios",
-      "accept_routes": true,
-      "exit_node_allow_lan_access": true,
+      "accept_routes": false,
       "udp_timeout": "5m",
-      "system_interface": true,
-      "system_interface_name": "tailscale0"
+      "system_interface": false
     }
   ],
   "inbounds": [
