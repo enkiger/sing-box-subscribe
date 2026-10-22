@@ -98,7 +98,7 @@
     ],
     "rules": [
       {
-        "domain_suffix": ["ts.net", "100.in-addr.arpa"],
+        "domain_suffix": ["ts.net", "tailscale.com", "tailscale.io", "100.in-addr.arpa"],
         "action": "route",
         "server": "ts-dns"
       },
@@ -415,7 +415,12 @@
         "outbound": "ts-ep"
       },
       {
-        "domain_suffix": ["ts.net", "100.in-addr.arpa"],
+        "domain_suffix": [
+          "ts.net",
+          "tailscale.com",
+          "tailscale.io",
+          "100.in-addr.arpa"
+        ],
         "action": "route",
         "outbound": "ts-ep"
       },
@@ -449,8 +454,6 @@
       },
       {
         "domain_suffix": [
-          "tailscale.com",
-          "tailscale.io",
           "vnc.com",
           "realvnc.com",
           "054238.xyz",
@@ -480,7 +483,7 @@
           },
           {
             "rule_set": ["Reject", "Ads_AWAvenue"]
-        }
+          }
         ],
         "action": "reject"
       },
