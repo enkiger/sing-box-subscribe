@@ -26,8 +26,8 @@
       "detour": "Proxy"
     },
     {
-    "tag": "direct-client",
-    "version": 2
+      "tag": "direct-client",
+      "version": 2
     }
   ],
   "dns": {
@@ -211,7 +211,8 @@
       "hostname": "sing-box-ios",
       "accept_routes": false,
       "udp_timeout": "5m",
-      "system_interface": false
+      "system_interface": false,
+      "detour": "Direct"
     }
   ],
   "inbounds": [
@@ -427,7 +428,15 @@
         "outbound": "Direct"
       },
       {
-        "preferred_by": "ts-ep",
+        "ip_cidr": ["100.123.184.14/32"],
+        "action": "route",
+        "outbound": "ts-ep"
+      },
+      {
+        "ip_cidr": [
+          "100.64.0.0/10",
+          "fd7a:115c:a1e0::/48"
+        ],
         "action": "route",
         "outbound": "ts-ep"
       },
@@ -460,14 +469,6 @@
         ],
         "action": "route",
         "outbound": "Direct"
-      },
-      {
-        "ip_cidr": [
-          "100.64.0.0/10",
-          "fd7a:115c:a1e0::/48"
-        ],
-        "action": "route",
-        "outbound": "ts-ep"
       },
       {
         "rule_set": ["AppleCN"],
