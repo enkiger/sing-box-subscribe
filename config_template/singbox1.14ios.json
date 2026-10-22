@@ -98,18 +98,12 @@
       },
       {
         "tag": "local",
-        "type": "local",
-        "neighbor_domain": [
-          ".local",
-          ".lan"
-        ]
+        "type": "local"
       },
       {
         "tag": "ts-dns",
         "type": "tailscale",
-        "endpoint": "ts-ep",
-        "accept_search_domain": true,
-        "accept_default_resolvers": false
+        "endpoint": "ts-ep"
       }
     ],
     "rules": [
@@ -255,12 +249,11 @@
     {
       "type": "tailscale",
       "tag": "ts-ep",
-      "state_directory": "tailscale",
+      "auth_key": " ",
       "hostname": "sing-box-ios",
-      "accept_routes": false,
+      "accept_routes": true,
       "udp_timeout": "5m",
-      "system_interface": false,
-      "detour": "Direct"
+      "system_interface": false
     }
   ],
   "inbounds": [
