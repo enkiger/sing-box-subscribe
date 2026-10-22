@@ -98,18 +98,6 @@
         "type": "fakeip",
         "inet4_range": "198.18.0.0/15",
         "inet6_range": "fc00::/18"
-      },
-      {
-        "tag": "local",
-        "type": "local",
-        "neighbor_domain": [".local", ".lan"]
-      },
-      {
-        "tag": "ts-dns",
-        "type": "tailscale",
-        "endpoint": "ts-ep",
-        "accept_default_resolvers": false,
-        "accept_search_domain": true
       }
     ],
     "rules": [
@@ -126,16 +114,6 @@
         "clash_mode": "Global",
         "action": "route",
         "server": "remote"
-      },
-      {
-        "preferred_by": "ts-dns",
-        "action": "route",
-        "server": "ts-dns"
-      },
-      {
-        "domain_suffix": ["ts.net", "100.in-addr.arpa"],
-        "action": "route",
-        "server": "ts-dns"
       },
       {
         "rule_set": ["AppleCN"],
@@ -224,19 +202,6 @@
     "strategy": "prefer_ipv4",
     "final": "ali-doh"
   },
-  "endpoints": [
-    {
-      "type": "tailscale",
-      "tag": "ts-ep",
-      "state_directory": "tailscale",
-      "hostname": "sing-box-win",
-      "accept_routes": true,
-      "exit_node_allow_lan_access": true,
-      "udp_timeout": "5m",
-      "system_interface": true,
-      "system_interface_name": "tailscale0"
-    }
-  ],
   "inbounds": [
      {
       "tag": "tun-in",
